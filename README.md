@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 📈 Stock Trading Simulator with AI Feedback
 
 Welcome to the **Stock Trading Simulator**, a FastAPI-based MVP where users can simulate stock trading, get AI-powered feedback, and level up their trading strategies using S Coins 💰.
@@ -136,3 +137,6 @@ MIT License – All rights reserved by **Adithya Naidu**.
 ## 👨‍💻 Author
 
 **Adithya Naidu** – AI Enthusiast
+=======
+# Gamified_Stock_Similator
+>>>>>>> 12a2cd5fc6c44428db30bb0d558e07634eaef912
