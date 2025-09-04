@@ -1,0 +1,24 @@
+fastapi==0.110.0
+uvicorn[standard]==0.27.1
+
+sqlalchemy==2.0.27
+psycopg2-binary==2.9.9
+
+pydantic==2.6.1
+pydantic-settings==2.2.1
+
+python-dotenv==1.0.1
+
+jupyterlab==4.1.2
+nbconvert==7.16.3
+nbimporter==0.3.4
+
+passlib[bcrypt]==1.7.4   # For password hashing (future-proofing user auth)
+
+httpx==0.26.0             # For API testing/async calls if needed
+requests==2.31.0          # Optional but good for basic scripts
+
+# Optional extras (comment/uncomment as needed)
+# alembic==1.13.1          # For DB migrations if needed in future
+# pytest==8.0.2            # For unit testing if you want to start writing tests
+# jupyter==1.0.0           # Classic jupyter if not using jupyterlab
