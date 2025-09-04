@@ -1,9 +1,8 @@
-<<<<<<< HEAD
+HEAD
 # 📈 Stock Trading Simulator with AI Feedback
 
 Welcome to the **Stock Trading Simulator**, a FastAPI-based MVP where users can simulate stock trading, get AI-powered feedback, and level up their trading strategies using S Coins 💰.
 
----
 
 ## 🚀 Features
 
@@ -18,7 +17,7 @@ Welcome to the **Stock Trading Simulator**, a FastAPI-based MVP where users can 
 - 🔐 PostgreSQL with SQLAlchemy ORM
 - 📝 Built using Jupyter Notebooks for rapid development
 
----
+
 
 ## 📁 Project Structure
 
@@ -84,7 +83,7 @@ from app.database import Base, engine
 You can keep notebooks as your internal dev playground and .py files clean and modular for production and deployment environments like Docker, Render, or Railway.
 
 
----
+
 
 ## 🛠 Technologies Used
 
@@ -96,7 +95,7 @@ You can keep notebooks as your internal dev playground and .py files clean and m
 - **Jupyter Notebook** – Interactive development
 - **Passlib (bcrypt)** – (Optional for secure password hashing)
 
----
+
 
 ## ⚙ Setup & Run Locally
 
@@ -137,6 +136,3 @@ MIT License – All rights reserved by **Adithya Naidu**.
 ## 👨‍💻 Author
 
 **Adithya Naidu** – AI Enthusiast
-=======
-# Gamified_Stock_Similator
->>>>>>> 12a2cd5fc6c44428db30bb0d558e07634eaef912
