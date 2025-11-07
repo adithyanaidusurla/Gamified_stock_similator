@@ -1,57 +1,70 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function TradeForm({ onSubmit }) {
-  const [symbol, setSymbol] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [type, setType] = useState("buy");
-  const [price, setPrice] = useState("");
+  const [form, setForm] = useState({
+    symbol: "",
+    type: "buy",
+    quantity: "",
+    reasoning: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!symbol || !quantity) return;
-    onSubmit({ symbol, quantity, type, price });
-    setSymbol("");
-    setQuantity("");
-    setPrice("");
+    if (!form.symbol || !form.quantity || !form.reasoning) return;
+    onSubmit(form);
+    setForm({ symbol: "", type: "buy", quantity: "", reasoning: "" });
   };
 
   return (
-    <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
-      <input
-        className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        placeholder="Stock Symbol"
-        value={symbol}
-        onChange={(e) => setSymbol(e.target.value)}
-      />
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="grid sm:grid-cols-2 gap-4">
+        <input
+          type="text"
+          name="symbol"
+          placeholder="Stock Symbol (e.g. AAPL)"
+          value={form.symbol}
+          onChange={handleChange}
+          className="border rounded-lg p-3 w-full focus:ring-2 focus:ring-blue-400 outline-none"
+        />
+        <select
+          name="type"
+          value={form.type}
+          onChange={handleChange}
+          className="border rounded-lg p-3 w-full focus:ring-2 focus:ring-blue-400 outline-none"
+        >
+          <option value="buy">Buy</option>
+          <option value="sell">Sell</option>
+        </select>
+      </div>
+
       <input
         type="number"
-        className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        name="quantity"
         placeholder="Quantity"
-        value={quantity}
-        onChange={(e) => setQuantity(e.target.value)}
+        value={form.quantity}
+        onChange={handleChange}
+        className="border rounded-lg p-3 w-full focus:ring-2 focus:ring-blue-400 outline-none"
       />
-      <input
-        type="number"
-        className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        placeholder="Price (optional)"
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
+
+      <textarea
+        name="reasoning"
+        placeholder="Enter your reasoning..."
+        value={form.reasoning}
+        onChange={handleChange}
+        rows={3}
+        className="border rounded-lg p-3 w-full focus:ring-2 focus:ring-blue-400 outline-none"
       />
-      <select
-        className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        value={type}
-        onChange={(e) => setType(e.target.value)}
-      >
-        <option value="buy">Buy</option>
-        <option value="sell">Sell</option>
-      </select>
+
       <button
         type="submit"
-        className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded"
+        className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg w-full sm:w-auto transition"
       >
         Submit Trade
       </button>
     </form>
   );
 }
-
