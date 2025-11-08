@@ -1,72 +1,121 @@
-import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
-  const navItems = [
-    { name: "Home", path: "/" },
-    { name: "Portfolio", path: "/portfolio" },
-    { name: "Trade", path: "/trade" },
-    { name: "History", path: "/history" },
-    { name: "Level", path: "/level" },
-  ];
+  const handleReset = () => {
+    if (window.confirm("Are you sure you want to reset all app data?")) {
+      localStorage.clear();
+      navigate("/");
+      window.location.reload();
+    }
+  };
 
   return (
-    <nav className="bg-white shadow-md fixed top-0 left-0 right-0 z-10">
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-3 flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold text-blue-600">
-          TradeSim
+    <nav className="bg-blue-600 text-white fixed top-0 w-full z-50 shadow-lg">
+      <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
+        <Link to="/" className="text-xl font-bold">
+          StockSim 📈
         </Link>
 
-        {/* Desktop Nav */}
-        <ul className="hidden md:flex gap-6">
-          {navItems.map((item) => (
-            <li key={item.name}>
-              <Link
-                to={item.path}
-                className={`font-medium ${
-                  pathname === item.path
-                    ? "text-blue-600"
-                    : "text-gray-700 hover:text-blue-500"
-                }`}
-              >
-                {item.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {/* Desktop Menu */}
+        <div className="hidden md:flex space-x-6 items-center">
+          <Link to="/" className="hover:text-gray-200">
+            Home
+          </Link>
+          <Link to="/portfolio" className="hover:text-gray-200">
+            Portfolio
+          </Link>
+          <Link to="/trade" className="hover:text-gray-200">
+            Trade
+          </Link>
+          <Link to="/history" className="hover:text-gray-200">
+            History
+          </Link>
+          <Link to="/level" className="hover:text-gray-200">
+            Levels
+          </Link>
 
-        {/* Mobile Menu Button */}
+          {/* Reset Button */}
+          <button
+            onClick={handleReset}
+            className="ml-4 bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium transition"
+          >
+            Reset App Data
+          </button>
+        </div>
+
+        {/* Mobile Hamburger */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden p-2 rounded-md hover:bg-gray-100"
+          className="md:hidden focus:outline-none"
         >
-          {open ? <X size={22} /> : <Menu size={22} />}
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
         </button>
       </div>
 
-      {/* Mobile Dropdown */}
+      {/* Mobile Menu */}
       {open && (
-        <ul className="md:hidden bg-white border-t shadow-lg px-6 py-4 space-y-3">
-          {navItems.map((item) => (
-            <li key={item.name}>
-              <Link
-                to={item.path}
-                onClick={() => setOpen(false)}
-                className={`block ${
-                  pathname === item.path
-                    ? "text-blue-600 font-semibold"
-                    : "text-gray-700 hover:text-blue-500"
-                }`}
-              >
-                {item.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="md:hidden bg-blue-700">
+          <Link
+            to="/"
+            className="block px-4 py-2 hover:bg-blue-800"
+            onClick={() => setOpen(false)}
+          >
+            Home
+          </Link>
+          <Link
+            to="/portfolio"
+            className="block px-4 py-2 hover:bg-blue-800"
+            onClick={() => setOpen(false)}
+          >
+            Portfolio
+          </Link>
+          <Link
+            to="/trade"
+            className="block px-4 py-2 hover:bg-blue-800"
+            onClick={() => setOpen(false)}
+          >
+            Trade
+          </Link>
+          <Link
+            to="/history"
+            className="block px-4 py-2 hover:bg-blue-800"
+            onClick={() => setOpen(false)}
+          >
+            History
+          </Link>
+          <Link
+            to="/level"
+            className="block px-4 py-2 hover:bg-blue-800"
+            onClick={() => setOpen(false)}
+          >
+            Levels
+          </Link>
+          <button
+            onClick={() => {
+              setOpen(false);
+              handleReset();
+            }}
+            className="block w-full text-left px-4 py-2 bg-red-500 hover:bg-red-600"
+          >
+            Reset App Data
+          </button>
+        </div>
       )}
     </nav>
   );
