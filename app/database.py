@@ -1,73 +1,19 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.getcwd(), 'app')))
-
-
-# In[2]:
-
-
-# DATABASE CONNECTION SETUP (Jupyter notebook version)
-
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
+# app/database.py
 import os
 from dotenv import load_dotenv
+from pymongo import MongoClient
 
-
-# In[3]:
-
-
-# Load .env file
 load_dotenv()
 
+MONGO_URI = os.getenv("MONGO_URI")
+DB_NAME = os.getenv("DB_NAME", "stock_trading_sim")
 
-# In[4]:
+if not MONGO_URI:
+    raise RuntimeError("MONGO_URI not set in environment")
 
+_client = MongoClient(MONGO_URI)
+db = _client[DB_NAME]
 
-# Read database URL from environment
-DATABASE_URL = os.getenv("DATABASE_URL")
-
-
-# In[5]:
-
-
-# SQLAlchemy setup
-engine = create_engine(DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
-
-
-# In[6]:
-
-
-print("✅ Database connection established successfully.")
-
-
-# In[7]:
-
-
-from sqlalchemy.orm import Session
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
-# In[17]:
-
-
-# !jupyter nbconvert --to script ~/Desktop/stock_trading_sim/app/database.ipynb
-
-try:
-    get_ipython().system('jupyter nbconvert --to script database.ipynb')
-except:
-    pass
-
+users_col = db["users"]
+trades_col = db["trades"]
+portfolio_col = db["portfolio"]
